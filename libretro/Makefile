@@ -75,17 +75,19 @@ ifneq (,$(findstring unix,$(platform)))
 	LDFLAGS += -lrt -ldl
 
 # Raspberry Pi
-else ifneq (,$(findstring rpi,$(platform)))
+else ifneq (,$(findstring rpi2,$(platform)))
 	TARGET := $(TARGET_NAME)_libretro.so
 	LDFLAGS += -shared -Wl,--version-script=link.T
+	FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/arm/include
+	FFMPEGLIBDIR := $(FFMPEGDIR)/linux/arm/lib
+	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil -lswresample -lswscale
 	fpic = -fPIC
 	GLES = 1
 	GL_LIB := -lGLESv2
-	INCFLAGS += -I/opt/vc/include
-	CPUFLAGS += -DARMv5_ONLY 
+	INCFLAGS += -I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads/
 	PLATFORM_EXT := unix
 	WITH_DYNAREC=arm
-	LDFLAGS += -lrt -ldl
+	LDFLAGS += -lrt -ldl -L/opt/vc/lib
 
 # i.MX6
 else ifneq (,$(findstring imx6,$(platform)))
