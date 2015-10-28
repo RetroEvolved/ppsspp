@@ -88,6 +88,8 @@ else ifneq (,$(findstring rpi2,$(platform)))
 	PLATFORM_EXT := unix
 	WITH_DYNAREC=arm
 	LDFLAGS += -lrt -ldl -L/opt/vc/lib
+	COREFLAGS += -U__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
+	HAVE_NEON=1
 
 # i.MX6
 else ifneq (,$(findstring imx6,$(platform)))
