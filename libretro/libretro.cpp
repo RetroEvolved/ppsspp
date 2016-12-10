@@ -273,7 +273,10 @@ void retro_get_system_info(struct retro_system_info *info)
 {
    memset(info, 0, sizeof(*info));
    info->library_name     = "PPSSPP";
-   info->library_version  = "v1.0.1-git";
+#ifndef GIT_VERSION
+#define GIT_VERSION ""
+#endif
+   info->library_version  = "v1.0.1-git" GIT_VERSION;
    info->need_fullpath    = true;
    info->valid_extensions = "elf|iso|cso|prx|pbp";
 }
