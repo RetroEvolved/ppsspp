@@ -51,6 +51,10 @@ NATIVEDIR		= $(CORE_DIR)/native
 EXTDIR			= $(CORE_DIR)/ext
 
 TARGET_NAME := ppsspp
+GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
+ifneq ($(GIT_VERSION)," unknown")
+	CXXFLAGS += -DGIT_VERSION=\"$(GIT_VERSION)\"
+endif
 CC_AS ?= $(CC)
 FFMPEGINCFLAGS :=
 FFMPEGLIBDIR :=
