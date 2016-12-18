@@ -98,7 +98,7 @@ else ifneq (,$(findstring rpi,$(platform)))
 		COREFLAGS += -U__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
 		HAVE_NEON=1
 	endif
-	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil -lswresample -lswscale
+	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil
 
 # i.MX6
 else ifneq (,$(findstring imx6,$(platform)))
@@ -308,7 +308,7 @@ OBJECTS		+= $(SOURCES_CXX:.cpp=.o) $(SOURCES_C:.c=.o) $(ASMFILES:.S=.o)
 CXXFLAGS	+= -std=c++11 $(CPUOPTS) $(COREFLAGS) $(INCFLAGS) $(PLATCFLAGS) $(fpic) $(PLATCFLAGS) $(CPUFLAGS) $(GLFLAGS) $(DYNAFLAGS) 
 CFLAGS		+= $(CPUOPTS) $(COREFLAGS) $(INCFLAGS) $(PLATCFLAGS) $(fpic) $(PLATCFLAGS) $(CPUFLAGS) $(GLFLAGS) $(DYNAFLAGS)
 
-LDFLAGS		+= -lm -lz -lavcodec -lavformat -lswresample -lavutil -lswscale $(FFMPEGLDFLAGS) $(fpic)
+LDFLAGS		+= -lm -lz $(FFMPEGLDFLAGS) $(fpic)
 ifeq (,$(findstring android,$(platform)))
 	LDFLAGS		+= -lpthread
 endif
