@@ -82,9 +82,6 @@ ifneq (,$(findstring unix,$(platform)))
 else ifneq (,$(findstring rpi,$(platform)))
 	TARGET := $(TARGET_NAME)_libretro.so
 	LDFLAGS += -shared -Wl,--version-script=link.T
-	FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/arm/include
-	FFMPEGLIBDIR := $(FFMPEGDIR)/linux/arm/lib
-	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil -lswresample -lswscale
 	fpic = -fPIC
 	GLES = 1
 	GL_LIB := -lGLESv2
@@ -92,10 +89,17 @@ else ifneq (,$(findstring rpi,$(platform)))
 	PLATFORM_EXT := unix
 	WITH_DYNAREC=arm
 	LDFLAGS += -lrt -ldl -L/opt/vc/lib
-	ifneq (,$(findstring rpi2,$(platform)))
+	ifneq (,$(findstring rpi1,$(platform)))
+		FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/arm/include
+		FFMPEGLIBDIR := $(FFMPEGDIR)/linux/arm/lib
+	endif
+	else ifneq (,$(findstring rpi2,$(platform)))
+		FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/armv7/include
+		FFMPEGLIBDIR := $(FFMPEGDIR)/linux/armv7/lib
 		COREFLAGS += -U__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
 		HAVE_NEON=1
 	endif
+	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil -lswresample -lswscale
 
 # i.MX6
 else ifneq (,$(findstring imx6,$(platform)))
