@@ -92,8 +92,7 @@ else ifneq (,$(findstring rpi,$(platform)))
 	ifneq (,$(findstring rpi1,$(platform)))
 		FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/arm/include
 		FFMPEGLIBDIR := $(FFMPEGDIR)/linux/arm/lib
-	endif
-	else ifneq (,$(findstring rpi2,$(platform)))
+	else
 		FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/armv7/include
 		FFMPEGLIBDIR := $(FFMPEGDIR)/linux/armv7/lib
 		COREFLAGS += -U__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
