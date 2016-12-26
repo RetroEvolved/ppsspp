@@ -98,7 +98,7 @@ else ifneq (,$(findstring rpi,$(platform)))
 		COREFLAGS += -U__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
 		HAVE_NEON=1
 	endif
-	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil
+	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil -lswresample -lswscale
 
 # i.MX6
 else ifneq (,$(findstring imx6,$(platform)))
