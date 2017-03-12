@@ -95,7 +95,6 @@ else ifneq (,$(findstring rpi,$(platform)))
 	else
 		FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/armv7/include
 		FFMPEGLIBDIR := $(FFMPEGDIR)/linux/armv7/lib
-		COREFLAGS += -U__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
 		HAVE_NEON=1
 	endif
 	FFMPEGLDFLAGS += -L$(FFMPEGLIBDIR) -lavformat -lavcodec -lavutil -lswresample -lswscale
