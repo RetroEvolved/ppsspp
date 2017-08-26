@@ -85,10 +85,15 @@ else ifneq (,$(findstring rpi,$(platform)))
 	fpic = -fPIC
 	GLES = 1
 	GL_LIB := -lGLESv2
-	INCFLAGS += -I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads/
 	PLATFORM_EXT := unix
 	WITH_DYNAREC=arm
-	LDFLAGS += -lrt -ldl -L/opt/vc/lib
+	LDFLAGS += -lrt -ldl
+
+	ifeq (,$(findstring mesa,$(platform)))
+		LDFLAGS += -L/opt/vc/lib
+ 		INCFLAGS += -I/opt/vc/include -I/opt/vc/include/interface/vcos -I/opt/vc/include/interface/vcos/pthreads
+ 	endif
+	
 	ifneq (,$(findstring rpi1,$(platform)))
 		FFMPEGINCFLAGS += -I$(FFMPEGDIR)/linux/arm/include
 		FFMPEGLIBDIR := $(FFMPEGDIR)/linux/arm/lib
